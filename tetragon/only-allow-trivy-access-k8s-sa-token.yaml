@@ -1,0 +1,35 @@
+apiVersion: cilium.io/v1alpha1
+kind: TracingPolicy
+metadata:
+  name: only-allow-trivy-access-k8s-sa-token
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: trivy-operator
+  kprobes:
+  - call: "security_file_permission"
+    message: "Only trivy-operator process can access the k8s service account secrets!!!"
+    syscall: false
+    return: true
+    args:
+    - index: 0
+      type: "file" # (struct file *) used-for getting the path 
+    - index: 1
+      type: "int"  # 0x04 is MAY_READ, 0x02 is MAY_WRITE 
+    returnArg:
+      index: 0
+      type: "int"
+    returnArgAction: "Post"
+    selectors:
+    - matchArgs:
+      - index: 0
+        operator: "Prefix"
+        values:
+        - "/var/run/secrets/kubernetes.io/serviceaccount"  # in /bin/sh
+        - "/run/secrets/kubernetes.io/serviceaccount"      # in /bin/bash
+      matchBinaries:
+      - operator: "NotIn"
+        values:
+        - "/usr/local/bin/trivy-operator"
+      matchActions:
+      - action: "Sigkill"

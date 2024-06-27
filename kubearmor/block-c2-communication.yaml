@@ -1,0 +1,16 @@
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: block-c2-communication
+spec:
+  selector:
+    matchLabels:
+      run: busybox
+  network:
+    matchProtocols:
+    - protocol: TCP
+      fromSource:
+      - path: /bin/nc
+  action: Block
+  severity: 5
+  message: "Potential C2 communication detected"

@@ -1,0 +1,22 @@
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: only-allow-trivy-access-k8s-sa-token
+  namespace: trivy-system
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: trivy-operator
+  file:
+    matchDirectories:
+    - dir: /var/run/secrets/kubernetes.io/serviceaccount/
+      recursive: true
+      fromSource:
+      - path: /usr/local/bin/trivy-operator
+    - dir: /run/secrets/kubernetes.io/serviceaccount/
+      recursive: true
+      fromSource:
+      - path: /usr/local/bin/trivy-operator
+  action: Allow 
+  message: "Someone is trying to access the k8s service account token!!!"
+

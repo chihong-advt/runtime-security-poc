@@ -1,0 +1,47 @@
+customRules:
+  detect-write-to-system-path.yaml: |-
+    - rule: Write to Critical System Directories
+      desc: Detect write attempts to critical system directories such as /bin, /usr/bin, /sbin, /usr/sbin, /usr/lib, /boot.
+      condition: >
+        (evt.type in (creat, truncate, chmod, fchmod, ftruncate, unlink, unlinkat, rename, renameat, link, linkat, symlink, symlinkat, mkdir, mkdirat, rmdir)) and
+        (fd.name startswith "/bin" or
+         fd.name startswith "/usr/bin" or
+         fd.name startswith "/sbin" or
+         fd.name startswith "/usr/sbin" or
+         fd.name startswith "/usr/lib" or
+         fd.name startswith "/boot") and
+        (evt.dir = < or evt.dir = >) and
+        container.id != host and 
+        proc.name!="falco"
+      output: "Write attempt to critical system directory (user=%user.name command=%proc.cmdline file=%fd.name parent=%proc.pname)"
+      priority: WARNING
+      tags: [filesystem, system]
+  detect-execution-from-tmp.yaml: |-
+    - rule: Execute from /tmp in container
+      desc: Detect any process executing from the /tmp directory within a container
+      condition: container.id != host and proc.name in (bash, sh, exe) and proc.exe startswith "/tmp"
+      output: >
+        Execution from /tmp directory detected in container
+        (user=%user.name user_loginuid=%user.loginuid container_id=%container.id container_name=%container.name proc=%proc.name cmdline=%proc.cmdline)
+      priority: WARNING
+      tags: [container, process, security]
+  detect-non-trivy-access-tok8s-sa-token.yaml: |-
+    - rule: Unauthorized Access to Kubernetes Service Account Secrets by Trivy Operator Pod
+      desc: Detect access to /run/secrets/kubernetes.io/serviceaccount/* by the Trivy operator pod when the source is not /usr/local/bin/trivy-operator
+      condition: >
+        (evt.type=open or evt.type=openat) and
+        (fd.name startswith "/run/secrets/kubernetes.io/serviceaccount" or fd.name startswith "/var/run/secrets/kubernetes.io/serviceaccount") and
+        container.id != host and
+        proc.name!="trivy-operator" and
+        k8s.pod.label[app.kubernetes.io/name] = "trivy-operator"
+      output: >
+        Unauthorized access to Kubernetes service account secrets by Trivy operator pod (user=%user.name user_loginuid=%user.loginuid command=%proc.cmdline file=%fd.name parent=%proc.pname)
+      priority: WARNING
+      tags: [kubernetes, secrets, security, trivy]
+  detect-c2-communication: |-
+    - rule: Detect Network Connection by nc Command
+      desc: Detects network connection attempts initiated by the nc (netcat) command
+      condition: container.id != host and evt.type = connect and proc.name = "nc"
+      output: "Network connection attempt by nc command detected (command=%proc.cmdline destination=%fd.sip:%fd.sport)"
+      priority: CRITICAL
+      tags: [network, nc, netcat, connection]
