@@ -9,8 +9,9 @@ spec:
   network:
     matchProtocols:
     - protocol: TCP
-      fromSource:
-      - path: /bin/nc
+  process:
+    matchPaths:
+    - path: /bin/nc
   action: Block
   severity: 5
   message: "Potential C2 communication detected"

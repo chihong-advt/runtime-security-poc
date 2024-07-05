@@ -1,3 +1,4 @@
+# Event logs are quite weird for this policy, might need some tuning or understand the processes in the container
 apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
@@ -11,12 +12,37 @@ spec:
     matchDirectories:
     - dir: /var/run/secrets/kubernetes.io/serviceaccount/
       recursive: true
-      fromSource:
-      - path: /usr/local/bin/trivy-operator
     - dir: /run/secrets/kubernetes.io/serviceaccount/
       recursive: true
-      fromSource:
-      - path: /usr/local/bin/trivy-operator
-  action: Allow 
+  process:
+    matchPaths:
+    - path: /bin/bash
+    - path: /bin/sh
+  action: Block
   message: "Someone is trying to access the k8s service account token!!!"
+
+# Allow action requires extra annotation or the kubearmorconfig for making it deny all
+# However, this method will also block the kubectl exec, and the event logs is not working
+# kubectl annotate ns trivy-system kubearmor-file-posture=block --overwrite
+# apiVersion: security.kubearmor.com/v1
+# kind: KubeArmorPolicy
+# metadata:
+#   name: only-allow-trivy-access-k8s-sa-token
+#   namespace: trivy-system
+# spec:
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/name: trivy-operator
+#   file:
+#     matchDirectories:
+#     - dir: /var/run/secrets/kubernetes.io/serviceaccount/
+#       recursive: true
+#     - dir: /run/secrets/kubernetes.io/serviceaccount/
+#       recursive: true
+#   process:
+#     matchPaths:
+#     - path: /usr/local/bin/trivy-operator
+#     - path: /bin/sh
+#   action: Allow 
+#   message: "Someone is trying to access the k8s service account token!!!"
 
