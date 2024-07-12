@@ -1,0 +1,204 @@
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: detect-write-to-system-path
+  namespace: argocd
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: argo-cd
+  action: Audit
+  file:
+    matchDirectories:
+    - dir: /sbin/
+      readOnly: true
+      recursive: true
+    - dir: /usr/bin/
+      readOnly: true
+      recursive: true
+    - dir: /usr/lib/
+      readOnly: true
+      recursive: true
+    - dir: /usr/sbin/
+      readOnly: true
+      recursive: true
+    - dir: /bin/
+      readOnly: true
+      recursive: true
+    - dir: /boot/
+      readOnly: true
+      recursive: true
+  message: Detected and prevented compromise to File integrity
+  severity: 1
+  tags:
+  - NIST
+  - NIST_800-53_AU-2
+  - NIST_800-53_SI-4
+  - MITRE
+  - MITRE_T1036_masquerading
+  - MITRE_T1565_data_manipulation
+
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: detect-write-to-system-path
+  namespace: bsp
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bsp
+  action: Audit
+  file:
+    matchDirectories:
+    - dir: /sbin/
+      readOnly: true
+      recursive: true
+    - dir: /usr/bin/
+      readOnly: true
+      recursive: true
+    - dir: /usr/lib/
+      readOnly: true
+      recursive: true
+    - dir: /usr/sbin/
+      readOnly: true
+      recursive: true
+    - dir: /bin/
+      readOnly: true
+      recursive: true
+    - dir: /boot/
+      readOnly: true
+      recursive: true
+  message: Detected and prevented compromise to File integrity
+  severity: 1
+  tags:
+  - NIST
+  - NIST_800-53_AU-2
+  - NIST_800-53_SI-4
+  - MITRE
+  - MITRE_T1036_masquerading
+  - MITRE_T1565_data_manipulation
+
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: detect-write-to-system-path-1
+  namespace: rest-api-dev
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bsp-auth
+  action: Audit
+  file:
+    matchDirectories:
+    - dir: /sbin/
+      readOnly: true
+      recursive: true
+    - dir: /usr/bin/
+      readOnly: true
+      recursive: true
+    - dir: /usr/lib/
+      readOnly: true
+      recursive: true
+    - dir: /usr/sbin/
+      readOnly: true
+      recursive: true
+    - dir: /bin/
+      readOnly: true
+      recursive: true
+    - dir: /boot/
+      readOnly: true
+      recursive: true
+  message: Detected and prevented compromise to File integrity
+  severity: 1
+  tags:
+  - NIST
+  - NIST_800-53_AU-2
+  - NIST_800-53_SI-4
+  - MITRE
+  - MITRE_T1036_masquerading
+  - MITRE_T1565_data_manipulation
+
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: detect-write-to-system-path-2
+  namespace: rest-api-dev
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: catalog-rest-api
+  action: Audit
+  file:
+    matchDirectories:
+    - dir: /sbin/
+      readOnly: true
+      recursive: true
+    - dir: /usr/bin/
+      readOnly: true
+      recursive: true
+    - dir: /usr/lib/
+      readOnly: true
+      recursive: true
+    - dir: /usr/sbin/
+      readOnly: true
+      recursive: true
+    - dir: /bin/
+      readOnly: true
+      recursive: true
+    - dir: /boot/
+      readOnly: true
+      recursive: true
+  message: Detected and prevented compromise to File integrity
+  severity: 1
+  tags:
+  - NIST
+  - NIST_800-53_AU-2
+  - NIST_800-53_SI-4
+  - MITRE
+  - MITRE_T1036_masquerading
+  - MITRE_T1565_data_manipulation
+
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: detect-write-to-system-path
+  namespace: kyverno
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: kyverno
+  action: Audit
+  file:
+    matchDirectories:
+    - dir: /sbin/
+      readOnly: true
+      recursive: true
+    - dir: /usr/bin/
+      readOnly: true
+      recursive: true
+    - dir: /usr/lib/
+      readOnly: true
+      recursive: true
+    - dir: /usr/sbin/
+      readOnly: true
+      recursive: true
+    - dir: /bin/
+      readOnly: true
+      recursive: true
+    - dir: /boot/
+      readOnly: true
+      recursive: true
+  message: Detected and prevented compromise to File integrity
+  severity: 1
+  tags:
+  - NIST
+  - NIST_800-53_AU-2
+  - NIST_800-53_SI-4
+  - MITRE
+  - MITRE_T1036_masquerading
+  - MITRE_T1565_data_manipulation

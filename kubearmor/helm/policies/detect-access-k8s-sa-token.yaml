@@ -1,0 +1,134 @@
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: audit-access-k8s-sa-token
+  namespace: argocd
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: argo-cd
+  file:
+    matchDirectories:
+    - dir: /var/run/secrets/kubernetes.io/serviceaccount/
+      recursive: true
+    - dir: /run/secrets/kubernetes.io/serviceaccount/
+      recursive: true
+  process:
+    matchPaths:
+    - path: /bin/bash
+    - path: /bin/sh
+  action: Audit
+  severity: 5
+  tags:
+  - CIS_Kubernetes_Benchmark_v1.27
+  - Control-Id-5.1.6
+  message: "Someone is trying to access the k8s service account token"
+
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: audit-access-k8s-sa-token
+  namespace: bsp
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bsp
+  file:
+    matchDirectories:
+    - dir: /var/run/secrets/kubernetes.io/serviceaccount/
+      recursive: true
+    - dir: /run/secrets/kubernetes.io/serviceaccount/
+      recursive: true
+  process:
+    matchPaths:
+    - path: /bin/bash
+    - path: /bin/sh
+  action: Audit
+  severity: 5
+  tags:
+  - CIS_Kubernetes_Benchmark_v1.27
+  - Control-Id-5.1.6
+  message: "Someone is trying to access the k8s service account token"
+
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: audit-access-k8s-sa-token-1
+  namespace: rest-api-dev
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bsp-auth
+  file:
+    matchDirectories:
+    - dir: /var/run/secrets/kubernetes.io/serviceaccount/
+      recursive: true
+    - dir: /run/secrets/kubernetes.io/serviceaccount/
+      recursive: true
+  process:
+    matchPaths:
+    - path: /bin/bash
+    - path: /bin/sh
+  action: Audit
+  severity: 5
+  tags:
+  - CIS_Kubernetes_Benchmark_v1.27
+  - Control-Id-5.1.6
+  message: "Someone is trying to access the k8s service account token"
+
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: audit-access-k8s-sa-token-2
+  namespace: rest-api-dev
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: catalog-rest-api
+  file:
+    matchDirectories:
+    - dir: /var/run/secrets/kubernetes.io/serviceaccount/
+      recursive: true
+    - dir: /run/secrets/kubernetes.io/serviceaccount/
+      recursive: true
+  process:
+    matchPaths:
+    - path: /bin/bash
+    - path: /bin/sh
+  action: Audit
+  severity: 5
+  tags:
+  - CIS_Kubernetes_Benchmark_v1.27
+  - Control-Id-5.1.6
+  message: "Someone is trying to access the k8s service account token"
+
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: audit-access-k8s-sa-token
+  namespace: kyverno
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: kyverno
+  file:
+    matchDirectories:
+    - dir: /var/run/secrets/kubernetes.io/serviceaccount/
+      recursive: true
+    - dir: /run/secrets/kubernetes.io/serviceaccount/
+      recursive: true
+  process:
+    matchPaths:
+    - path: /bin/bash
+    - path: /bin/sh
+  action: Audit
+  severity: 5
+  tags:
+  - CIS_Kubernetes_Benchmark_v1.27
+  - Control-Id-5.1.6
+  message: "Someone is trying to access the k8s service account token"
