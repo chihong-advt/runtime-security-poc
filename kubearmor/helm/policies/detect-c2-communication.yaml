@@ -42,32 +42,9 @@ spec:
 apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
-  name: detect-c2-communication-1
+  name: detect-c2-communication
   namespace: rest-api-dev
 spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: bsp-auth
-  network:
-    matchProtocols:
-    - protocol: TCP
-  process:
-    matchPaths:
-    - path: /bin/nc
-  action: Audit
-  severity: 5
-  message: "Potential C2 communication detected"
-
----
-apiVersion: security.kubearmor.com/v1
-kind: KubeArmorPolicy
-metadata:
-  name: detect-c2-communication-2
-  namespace: rest-api-dev
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: catalog-rest-api
   network:
     matchProtocols:
     - protocol: TCP

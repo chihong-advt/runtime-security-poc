@@ -44,33 +44,9 @@ spec:
 apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
-  name: detect-exec-in-tmp-1
+  name: detect-exec-in-tmp
   namespace: rest-api-dev
 spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: bsp-auth
-  tags:
-  - CIS
-  - CIS-control-1.1.5
-  severity: 4
-  message: Alert! Execution attempted inside tmp folder
-  process:
-    matchDirectories:
-    - dir: /tmp/
-      recursive: true
-  action: Audit
-
----
-apiVersion: security.kubearmor.com/v1
-kind: KubeArmorPolicy
-metadata:
-  name: detect-exec-in-tmp-2
-  namespace: rest-api-dev
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: catalog-rest-api
   tags:
   - CIS
   - CIS-control-1.1.5

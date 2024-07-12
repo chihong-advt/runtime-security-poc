@@ -40,31 +40,9 @@ spec:
 apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
-  name: detect-chmod-and-chown-1
+  name: detect-chmod-and-chown
   namespace: rest-api-dev
 spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: bsp-auth
-  message: "Detect chmod and chown"
-  tags : ["MITRE", "T1222.002"]
-  process:
-    matchPatterns:
-    - pattern: /**/chmod
-    - pattern: /**/chown
-    severity: 2 
-    action: Audit
-
----
-apiVersion: security.kubearmor.com/v1
-kind: KubeArmorPolicy
-metadata:
-  name: detect-chmod-and-chown-2
-namespace: rest-api-dev
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: catalog-rest-api
   message: "Detect chmod and chown"
   tags : ["MITRE", "T1222.002"]
   process:
