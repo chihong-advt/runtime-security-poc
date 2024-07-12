@@ -1,8 +1,29 @@
+---
 apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
   name: detect-access-pki-cert
-  namespace: default # Change your namespace
+  namespace: bsp
+spec:
+  tags: ["NIST","SC(17)"]
+  message: "Alert! Someone tried to access certificate keys"
+  file:
+    severity: 5
+    matchDirectories:
+      - dir: /etc/pki/
+        recursive: true
+      - dir: /etc/ssl/certs/
+        recursive: true
+      - dir: /usr/local/share/ca-certificates/
+        recursive: true
+    action: Audit
+
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: detect-access-pki-cert
+  namespace: rest-api-dev
 spec:
   tags: ["NIST","SC(17)"]
   message: "Alert! Someone tried to access certificate keys"
