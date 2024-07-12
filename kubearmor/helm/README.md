@@ -10,4 +10,14 @@ helm upgrade --install kubearmor-operator kubearmor/kubearmor-operator --set aut
 # there is a default deny-all network policy in the namespace
 kubectl delete netpol default-deny -n kubearmor
 kubectl apply -f netpol.yaml
+
+# apply policies
+kubectl apply -f policies
+```
+
+## Uninstall
+```bash
+helm delete kubearmor-operator -n kubearmor
+kubectl delete -f netpol.yaml
+kubectl delete -f policies
 ```
