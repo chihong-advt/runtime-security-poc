@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-all
+  namespace: kubearmor
+spec:
+  policyTypes:
+  - Egress
+  podSelector: {} 
+  egress:
+  - to: []
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-to-api-server
+  namespace: kubearmor
+spec:
+  egress:
+  - ports:
+    - port: 443
+      protocol: TCP
+    to:
+    - namespaceSelector:
+        matchLabels:
+          name: kube-system
+  podSelector: {}
+  policyTypes:
+  - Egress
