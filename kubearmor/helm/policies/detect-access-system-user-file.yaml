@@ -1,0 +1,15 @@
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: detect-access-system-user-file
+  namespace: sr-connect-sync
+spec:
+  tags: ["MITRE", "system", "T1003"]
+  message: “Suspicious! Someone Tried to Access the System User files”
+  process: 
+    severity: 7         
+    matchPaths: 
+    - path: /etc/passwd
+    - path: /etc/shadow
+    action: Audit
