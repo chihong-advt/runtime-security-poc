@@ -1,0 +1,15 @@
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: detect-access-network-files
+  namespace: sr-connect-sync
+spec:
+  tags: ["NIST-800", "AC-18(1)", "Networking", "Access", "NIST_SA", "NIST_SA-20", "NIST_SA-20-Customized Development of Critical Components", "SA"]
+  message: "Access to network files detected. Possible violation of NIST Controls"
+  file:
+    severity: 3
+    matchPaths:
+      - path: /etc/hostapd/hostapd.conf
+      - path: /etc/network/interfaces
+    action: Audit
