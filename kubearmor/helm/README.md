@@ -2,6 +2,7 @@
 The official [KubeArmor Operator Helm Chart](https://github.com/kubearmor/KubeArmor/tree/main/deployments/helm/KubeArmorOperator)
 
 ## Setup
+To test the KubeArmor in BSP Staging Cluster, kindly follow the steps below.
 ```bash
 # there is a default deny-all network policy in the namespace
 kubectl create namespace kubearmor
@@ -21,4 +22,5 @@ kubectl apply -f policies
 helm delete kubearmor-operator -n kubearmor
 kubectl delete -f netpol.yaml
 kubectl delete -f policies
+kubectl delete ns kubearmor
 ```

@@ -3,65 +3,8 @@ apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
   name: detect-chmod-and-chown
-  namespace: argocd
+  namespace: sr-connect-sync
 spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/instance: argo-cd
-  message: "Detect chmod and chown"
-  tags : ["MITRE", "T1222.002"]
-  process:
-    matchPatterns:
-    - pattern: /**/chmod
-    - pattern: /**/chown
-    severity: 2 
-    action: Audit
-
----
-apiVersion: security.kubearmor.com/v1
-kind: KubeArmorPolicy
-metadata:
-  name: detect-chmod-and-chown
-  namespace: bsp
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: bsp
-  message: "Detect chmod and chown"
-  tags : ["MITRE", "T1222.002"]
-  process:
-    matchPatterns:
-    - pattern: /**/chmod
-    - pattern: /**/chown
-    severity: 2 
-    action: Audit
-
----
-apiVersion: security.kubearmor.com/v1
-kind: KubeArmorPolicy
-metadata:
-  name: detect-chmod-and-chown
-  namespace: rest-api-dev
-spec:
-  message: "Detect chmod and chown"
-  tags : ["MITRE", "T1222.002"]
-  process:
-    matchPatterns:
-    - pattern: /**/chmod
-    - pattern: /**/chown
-    severity: 2 
-    action: Audit
-
----
-apiVersion: security.kubearmor.com/v1
-kind: KubeArmorPolicy
-metadata:
-  name: detect-chmod-and-chown
-  namespace: kyverno
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/instance: kyverno
   message: "Detect chmod and chown"
   tags : ["MITRE", "T1222.002"]
   process:
