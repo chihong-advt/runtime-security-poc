@@ -5,22 +5,19 @@ The official [KubeArmor Operator Helm Chart](https://github.com/kubearmor/KubeAr
 To test the KubeArmor in BSP Staging Cluster, kindly follow the steps below.
 ```bash
 # there is a default deny-all network policy in the namespace
-kubectl create namespace kubearmor
-kubectl apply -f netpol.yaml
-kubectl delete netpol default-deny -n kubearmor
-
-helm repo add kubearmor https://kubearmor.github.io/charts
-helm repo update kubearmor
-helm upgrade --install kubearmor-operator kubearmor/kubearmor-operator --set autoDeploy=true -n kubearmor
+kubectl apply -f .
 
 # apply policies
 kubectl apply -f policies
 ```
 
+## Info
+- There is a [bug in version 1.3.4](https://github.com/kubearmor/KubeArmor/issues/1794).
+- Version 1.3.8 supports cluster-level policy (stable release is not ready).
+
 ## Uninstall
 ```bash
-helm delete kubearmor-operator -n kubearmor
-kubectl delete -f netpol.yaml
+kubectl delete -f .
 kubectl delete -f policies
 kubectl delete ns kubearmor
 ```
