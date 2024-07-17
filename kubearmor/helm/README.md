@@ -12,6 +12,7 @@ kubectl apply -f policies
 ```
 
 ## Info
+https://artifacthub.io/packages/helm/kubearmor/kubearmor/
 - There is a [bug in version 1.3.4](https://github.com/kubearmor/KubeArmor/issues/1794).
 - Version 1.3.8 supports cluster-level policy (stable release is not ready).
 
