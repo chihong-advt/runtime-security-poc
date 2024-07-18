@@ -1,5 +1,5 @@
-# KubeArmor Operator Helm Chart
-The official [KubeArmor Operator Helm Chart](https://github.com/kubearmor/KubeArmor/tree/main/deployments/helm/KubeArmorOperator)
+# KubeArmor Helm Chart
+The official [KubeArmor Helm Chart](https://github.com/kubearmor/KubeArmor/tree/main/deployments/helm/KubeArmor)
 
 ## Setup
 To test the KubeArmor in BSP Staging Cluster, kindly follow the steps below.
