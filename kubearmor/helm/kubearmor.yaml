@@ -15,6 +15,21 @@ spec:
       values: |
         environment:
           name: EKS
+        kubearmorRelay:
+          image:
+            tag: v1.2.3
+        kubearmorInit:
+          image:
+            tag: v1.3.2
+        kubeRbacProxy:
+          image:
+            tag: v0.15.0
+        kubearmorController:
+          image:
+            tag: v1.3.2
+        kubearmor:
+          image:
+            tag: v1.3.2
   destination:
     server: https://kubernetes.default.svc
     namespace: kubearmor
