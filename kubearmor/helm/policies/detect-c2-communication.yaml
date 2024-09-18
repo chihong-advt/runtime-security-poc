@@ -3,7 +3,7 @@ apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
   name: detect-c2-communication
-  namespace: sr-connect-sync
+  namespace: argocd
 spec:
   network:
     matchProtocols:

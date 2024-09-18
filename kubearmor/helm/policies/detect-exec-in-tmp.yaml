@@ -3,7 +3,7 @@ apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
   name: detect-exec-in-tmp
-  namespace: sr-connect-sync
+  namespace: argocd
 spec:
   tags:
   - CIS

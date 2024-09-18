@@ -3,7 +3,7 @@ apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
   name: detect-write-to-system-path
-  namespace: sr-connect-sync
+  namespace: argocd
 spec:
   action: Audit
   file:

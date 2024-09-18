@@ -3,7 +3,7 @@ apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
   name: audit-access-k8s-sa-token
-  namespace: sr-connect-sync
+  namespace: argocd
 spec:
   file:
     matchDirectories:

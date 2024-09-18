@@ -3,7 +3,7 @@ apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
   name: detect-network-scanning
-  namespace: sr-connect-sync
+  namespace: argocd
 spec:
   tags: ["MITRE", "T1046"]
   message: "Network service has been scanned!"

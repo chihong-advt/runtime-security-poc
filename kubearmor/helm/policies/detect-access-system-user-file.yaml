@@ -3,7 +3,7 @@ apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
   name: detect-access-system-user-file
-  namespace: sr-connect-sync
+  namespace: argocd
 spec:
   tags: ["MITRE", "system", "T1003"]
   message: “Suspicious! Someone Tried to Access the System User files”

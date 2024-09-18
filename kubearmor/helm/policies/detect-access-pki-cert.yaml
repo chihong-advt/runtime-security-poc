@@ -3,7 +3,7 @@ apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
   name: detect-access-pki-cert
-  namespace: sr-connect-sync
+  namespace: argocd
 spec:
   tags: ["NIST","SC(17)"]
   message: "Alert! Someone tried to access certificate keys"

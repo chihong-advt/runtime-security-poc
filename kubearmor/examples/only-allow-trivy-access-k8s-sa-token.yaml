@@ -3,7 +3,7 @@ apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
   name: only-allow-trivy-access-k8s-sa-token
-  namespace: trivy-system
+  namespace: trivy
 spec:
   selector:
     matchLabels:
